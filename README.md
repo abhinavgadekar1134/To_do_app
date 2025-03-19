@@ -1,0 +1,1 @@
+Created a To-Do Application using HTML, CSS, and JavaScript, integrating an LLM via Groq Cloud API! This project enhances my skills while exploring AI-driven task management. The app provides smart suggestions and automation for better productivity. Excited to build more with AI! 💡 #GroqCloud #AI #WebDevelopment
