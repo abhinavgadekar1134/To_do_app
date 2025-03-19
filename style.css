@@ -1,5 +1,6 @@
 body {
-    background-color: #f8f9fa;
+    background-color: #001b46;
+    color: aliceblue;
 }
 
 .container {
@@ -10,8 +11,21 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
 }
-
+.heading-text{
+    color: yellow;
+    margin-bottom: 10%;
+}
+.outer-group{
+    /* background-color: transparent; */
+    background-color: rgba(234, 252, 255, 0.879);
+    box-shadow: 5px 5px 5px rgb(25, 26, 27);
+    border: none;
+    border-bottom: 1px solid black;
+    border-radius: 10px;
+    margin-bottom: 4px;
+}
 .task-buttons {
     display: flex;
     gap: 10px;
