@@ -17,19 +17,10 @@ body {
     gap: 10px;
 }
 
-.edit-btn {
-    background: none;
-    border: none;
-    color: blue;
-    font-size: 1.2rem;
-    cursor: pointer;
-    border: none;
-}
-
-.delete-btn {
-    background: none;
-    border: none;
-    color: red;
-    font-size: 1.2rem;
-    cursor: pointer;
+.task-buttons .btn {
+    padding: 4px 8px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

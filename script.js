@@ -8,12 +8,16 @@ function addTask() {
     }
 
     let li = document.createElement("li");
-    li.className = "list-group-item";
+    li.className = "list-group-item d-flex justify-content-between align-items-center";
     li.innerHTML = `
         <span class="task-text">${taskInput.value}</span>
-        <div class="task-buttons">
-            <button class="edit-btn" onclick="editTask(this)">✏️</button>
-            <button class="delete-btn" onclick="removeTask(this)">🗑️</button>
+        <div class="task-buttons d-flex">
+            <button class="btn btn-sm btn-outline-primary me-2" onclick="editTask(this)">
+                <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger" onclick="removeTask(this)">
+                <i class="bi bi-trash"></i>
+            </button>
         </div>
     `;
 
@@ -24,12 +28,12 @@ function addTask() {
 }
 
 function removeTask(element) {
-    element.parentElement.parentElement.remove();
+    element.closest(".list-group-item").remove();
     updateTaskCount();
 }
 
 function editTask(element) {
-    let taskText = element.parentElement.previousElementSibling;
+    let taskText = element.closest(".list-group-item").querySelector(".task-text");
     let newTask = prompt("Edit your task:", taskText.innerText);
 
     if (newTask !== null && newTask.trim() !== "") {
