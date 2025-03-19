@@ -1,6 +1,7 @@
 body {
     background-color: #001b46;
     color: aliceblue;
+    height: 2000px;
 }
 
 .container {
@@ -25,6 +26,7 @@ body {
     border-bottom: 1px solid black;
     border-radius: 10px;
     margin-bottom: 4px;
+    
 }
 .task-buttons {
     display: flex;
@@ -37,4 +39,26 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+  
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px #001b46;
+    border-radius: 30px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(0, 13, 52);
+    border-radius: 30px;
+  }
+
+  .btn {
+    border: none;
+  }
