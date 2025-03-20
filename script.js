@@ -1,6 +1,6 @@
 let taskInput = document.getElementById("taskInput");
 let taskList = document.getElementById("taskList");
-async function addTask2() {
+async function addTask() {
 
     let taskInput = document.getElementById("taskInput");
     let taskList = document.getElementById("taskList");
@@ -11,9 +11,9 @@ async function addTask2() {
 
 
     let li = document.createElement("li");
-    li.className = "list-group-item block justify-content-between align-items-center";
+    li.className = "outer-group list-group-item block justify-content-between align-items-center";
     li.innerHTML = `
-    <div class="">
+
         <span class="task-text">${taskInput.value}</span>
         <li class="task-buttons d-flex">
             <button class="btn btn-sm btn-outline-primary me-2" onclick="editTask(this)">
@@ -23,69 +23,8 @@ async function addTask2() {
                 <i class="bi bi-trash"></i>
             </button>
         </li>
-    </div>
+
     `;
-
-    // Gorq api
-    const response = await fetch(
-        "https://api.groq.com/openai/v1/chat/completions",
-        {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization:
-                    "Bearer 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",
-            },
-            body: JSON.stringify({
-                messages: [
-                    {
-                        role: "system",
-                        content:
-                            "You are task creator who generates array of string for task based on user query\nExample - User asks - I want to learn javascript\nresult - { 'tasks': ['Learn basic of variable', 'control flows', 'so on']} in json\n",
-                    },
-                    {
-                        role: "user",
-                        content: taskInput.value,
-                    },
-                ],
-                model: "llama-3.3-70b-versatile",
-                temperature: 1,
-                max_completion_tokens: 1024,
-                top_p: 1,
-                stream: false,
-                response_format: {
-                    type: "json_object",
-                },
-                stop: null,
-            }),
-        }
-    );
-    const body = await response.json();
-    console.log(body.choices[0].message.content);
-    const tasks = JSON.parse(body.choices[0].message.content).tasks;
-    console.log(tasks);
-    // 
-    let ol = document.createElement("ol");
-    tasks.forEach(element => {
-        let innerli = document.createElement("li");
-        innerli.className = "list-group-item block justify-content-between align-items-center";
-        innerli.innerHTML = `
-            <span class="task-text">${element}</span>
-            <li class="task-buttons ">
-                <button class="btn btn-sm btn-outline-primary me-2" onclick="editTask(this)">
-                    <i class="bi bi-pencil"></i>
-                </button>
-                <button class="btn btn-sm btn-outline-danger" onclick="removeTask(this)">
-                    <i class="bi bi-trash"></i>
-                </button>
-            </li>   
-    `;
-        ol.appendChild(innerli);
-    });
-
-
-    li.appendChild(ol);
-
     taskList.appendChild(li);
     taskInput.value = "";
     updateTaskCount();
@@ -105,7 +44,7 @@ async function addTask2() {
 
 
 
-async function addTask() {
+async function generateWithAI() {
     let taskInput = document.getElementById("taskInput");
     let taskList = document.getElementById("taskList");
 
