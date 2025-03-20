@@ -11,7 +11,7 @@ async function addTask() {
 
 
     let li = document.createElement("li");
-    li.className = "outer-group list-group-item block justify-content-between align-items-center";
+    li.className = "outer-group close-to-del list-group-item block justify-content-between align-items-center";
     li.innerHTML = `
 
         <span class="task-text">${taskInput.value}</span>
@@ -30,17 +30,6 @@ async function addTask() {
     updateTaskCount();
 
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -87,7 +76,7 @@ async function generateWithAI() {
                         {
                             role: "system",
                             content:
-                                "You are task creator who generates array of string for task based on user query\nExample - User asks - I want to learn javascript\nresult - { 'tasks': ['Learn basic of variable', 'control flows', 'so on']} in json\n",
+                                "You are task creator who generates array of string for task based on user query\nExample - User asks - I want to learn javascript\nresult - { 'tasks': ['Learn basic of variable', 'control flows', 'so on']} in json.  always use same format for result means only tasks in object   \n",
                         },
                         {
                             role: "user",
@@ -173,12 +162,40 @@ function removeTask(element) {
 }
 
 function editTask(element) {
-    let taskText = element.closest(".list-group-item").querySelector(".task-text");
-    let newTask = prompt("Edit your task:", taskText.innerText);
+    let taskText = element.closest(".close-to-del").querySelector(".task-text");
+    
+    // Create an input field with the same styling as text
+    let inputField = document.createElement("input");
+    inputField.type = "text";
+    inputField.value = taskText.innerText;
+    inputField.className = "task-edit-input form-control border-0 p-0 m-0 bg-transparent";
+    inputField.style.width = "100%";
+    inputField.style.fontSize = "inherit";
+    inputField.style.fontWeight = "inherit";
+    inputField.style.outline = "none";
+    
+    // Replace task text with input field
+    taskText.replaceWith(inputField);
+    inputField.focus();
+    
+    // Save changes when input loses focus or Enter is pressed
+    inputField.addEventListener("blur", () => saveEdit(inputField));
+    inputField.addEventListener("keypress", (event) => {
+        if (event.key === "Enter") {
+            saveEdit(inputField);
+        }
+    });
+}
 
-    if (newTask !== null && newTask.trim() !== "") {
-        taskText.innerText = newTask;
-    }
+function saveEdit(inputField) {
+    let newText = inputField.value.trim();
+    if (newText === "") return;
+    
+    let taskText = document.createElement("span");
+    taskText.className = "task-text";
+    taskText.innerText = newText;
+    
+    inputField.replaceWith(taskText);
 }
 
 function updateTaskCount() {
